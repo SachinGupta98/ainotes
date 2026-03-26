@@ -198,10 +198,7 @@ function calcReadingTime(text) {
 }
 
 /* ── Marked.js config ── */
-marked.setOptions({
-  breaks: true,
-  gfm: true,
-});
+marked.use({ breaks: true, gfm: true });
 
 /* ── Render notes ── */
 function renderNotes(markdown) {
@@ -471,17 +468,9 @@ voiceBtn.addEventListener('click', () => {
   }
   if (!state.notes) { showToast('Generate notes first.', 'info'); return; }
 
-  // Strip markdown for cleaner speech
-  const plainText = state.notes
-    .replace(/#{1,6}\s*/g, '')
-    .replace(/\*\*(.+?)\*\*/g, '$1')
-    .replace(/\*(.+?)\*/g, '$1')
-    .replace(/`{1,3}[^`]*`{1,3}/g, '')
-    .replace(/>\s*/g, '')
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/[\-\*]\s+/g, '')
-    .replace(/<[^>]+>/g, '')
-    .trim();
+  // Convert rendered HTML to plain text via DOMParser for reliable TTS input
+  const tempDoc = new DOMParser().parseFromString(marked.parse(state.notes), 'text/html');
+  const plainText = tempDoc.body.textContent || tempDoc.body.innerText || '';
 
   speechInstance = new SpeechSynthesisUtterance(plainText);
   speechInstance.rate = 0.95;

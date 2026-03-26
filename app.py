@@ -9,6 +9,8 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
+GROQ_MODEL = "llama3-70b-8192"
+
 _groq_client = None
 
 
@@ -143,7 +145,7 @@ def generate():
         system_prompt = build_system_prompt(level, domain, depth)
 
         response = get_client().chat.completions.create(
-            model="llama3-70b-8192",
+            model=GROQ_MODEL,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": f"Generate comprehensive notes on the topic: {topic}"},
@@ -189,7 +191,7 @@ def followup():
         messages.append({"role": "user", "content": question})
 
         response = get_client().chat.completions.create(
-            model="llama3-70b-8192",
+            model=GROQ_MODEL,
             messages=messages,
             temperature=0.7,
             max_tokens=1024,
@@ -203,4 +205,5 @@ def followup():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    app.run(debug=debug, port=5000)
