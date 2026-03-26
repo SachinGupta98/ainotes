@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoteVerse AI — Intelligent Learning Platform</title>
+  <meta name="description" content="AI-powered note generation platform that teaches any topic from scratch to advanced level." />
+
+  <!-- Google Fonts preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════ -->
+<nav class="navbar" role="banner">
+  <div class="nav-logo">
+    <div class="nav-logo-title">NoteVerse AI</div>
+    <div class="nav-tagline">Intelligent Knowledge Engine</div>
+  </div>
+  <div class="nav-actions">
+    <button class="btn-icon" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">🌙</button>
+    <button class="btn-icon" id="voiceBtn" title="Read aloud" aria-label="Read notes aloud">🔊</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero" aria-labelledby="heroHeading">
+  <div class="hero-badge">✦ AI-Powered Learning</div>
+  <h1 id="heroHeading">
+    Master Any Topic<br /><span>From Scratch to Expert</span>
+  </h1>
+  <p class="hero-subtitle">
+    Generate beautifully structured, AI-written notes tailored to your education level,
+    domain, and depth preference — in seconds.
+  </p>
+</section>
+
+<!-- ══════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════ -->
+<main class="main-container" role="main">
+
+  <!-- ── Control Panel ── -->
+  <section class="control-panel" aria-label="Note generation controls">
+
+    <!-- Step 1: Education Level -->
+    <div class="step" role="group" aria-labelledby="levelLabel">
+      <div class="step-label" id="levelLabel">
+        <span aria-hidden="true">1</span> Education Level
+      </div>
+      <div class="pill-group" role="radiogroup" aria-label="Select education level">
+        <button class="pill pill-level" data-value="school"    role="radio" aria-checked="false" tabindex="0">🏫 School</button>
+        <button class="pill pill-level" data-value="college"   role="radio" aria-checked="false" tabindex="0">🎓 College</button>
+        <button class="pill pill-level" data-value="university" role="radio" aria-checked="false" tabindex="0">🏛️ University</button>
+        <button class="pill pill-level" data-value="selflearn" role="radio" aria-checked="false" tabindex="0">💡 Self-Learn</button>
+      </div>
+      <div class="validation-msg" id="levelValidation" role="alert" aria-live="polite"></div>
+    </div>
+
+    <!-- Step 2: Domain -->
+    <div class="step" role="group" aria-labelledby="domainLabel">
+      <div class="step-label" id="domainLabel">
+        <span aria-hidden="true">2</span> Domain
+      </div>
+      <div class="domain-grid" role="radiogroup" aria-label="Select domain">
+        <button class="domain-card" data-value="technology"   tabindex="0" aria-pressed="false">
+          <span class="domain-icon">💻</span><span class="domain-label">Technology</span>
+        </button>
+        <button class="domain-card" data-value="cs"           tabindex="0" aria-pressed="false">
+          <span class="domain-icon">⚙️</span><span class="domain-label">Computer Science</span>
+        </button>
+        <button class="domain-card" data-value="mathematics"  tabindex="0" aria-pressed="false">
+          <span class="domain-icon">📐</span><span class="domain-label">Mathematics</span>
+        </button>
+        <button class="domain-card" data-value="physics"      tabindex="0" aria-pressed="false">
+          <span class="domain-icon">⚛️</span><span class="domain-label">Physics</span>
+        </button>
+        <button class="domain-card" data-value="chemistry"    tabindex="0" aria-pressed="false">
+          <span class="domain-icon">🧪</span><span class="domain-label">Chemistry</span>
+        </button>
+        <button class="domain-card" data-value="biology"      tabindex="0" aria-pressed="false">
+          <span class="domain-icon">🧬</span><span class="domain-label">Biology</span>
+        </button>
+        <button class="domain-card" data-value="mechanical"   tabindex="0" aria-pressed="false">
+          <span class="domain-icon">🔩</span><span class="domain-label">Mechanical Eng.</span>
+        </button>
+        <button class="domain-card" data-value="electrical"   tabindex="0" aria-pressed="false">
+          <span class="domain-icon">⚡</span><span class="domain-label">Electrical Eng.</span>
+        </button>
+        <button class="domain-card" data-value="science"      tabindex="0" aria-pressed="false">
+          <span class="domain-icon">🔭</span><span class="domain-label">Science (General)</span>
+        </button>
+        <button class="domain-card" data-value="humanities"   tabindex="0" aria-pressed="false">
+          <span class="domain-icon">📚</span><span class="domain-label">Humanities</span>
+        </button>
+        <button class="domain-card" data-value="economics"    tabindex="0" aria-pressed="false">
+          <span class="domain-icon">📊</span><span class="domain-label">Economics</span>
+        </button>
+        <button class="domain-card" data-value="history"      tabindex="0" aria-pressed="false">
+          <span class="domain-icon">🏛️</span><span class="domain-label">History</span>
+        </button>
+        <button class="domain-card" data-value="medicine"     tabindex="0" aria-pressed="false">
+          <span class="domain-icon">🏥</span><span class="domain-label">Medicine &amp; Health</span>
+        </button>
+        <button class="domain-card" data-value="law"          tabindex="0" aria-pressed="false">
+          <span class="domain-icon">⚖️</span><span class="domain-label">Law &amp; Civics</span>
+        </button>
+        <button class="domain-card" data-value="environment"  tabindex="0" aria-pressed="false">
+          <span class="domain-icon">🌿</span><span class="domain-label">Environmental Sci.</span>
+        </button>
+        <button class="domain-card" data-value="psychology"   tabindex="0" aria-pressed="false">
+          <span class="domain-icon">🧠</span><span class="domain-label">Psychology</span>
+        </button>
+        <button class="domain-card" data-value="philosophy"   tabindex="0" aria-pressed="false">
+          <span class="domain-icon">🤔</span><span class="domain-label">Philosophy</span>
+        </button>
+        <button class="domain-card" data-value="architecture" tabindex="0" aria-pressed="false">
+          <span class="domain-icon">🏗️</span><span class="domain-label">Architecture</span>
+        </button>
+      </div>
+      <div class="validation-msg" id="domainValidation" role="alert" aria-live="polite"></div>
+    </div>
+
+    <!-- Step 3: Topic Input -->
+    <div class="step">
+      <div class="step-label">
+        <span aria-hidden="true">3</span> Topic
+      </div>
+      <div class="topic-input-wrap">
+        <label for="topicInput" class="visually-hidden">Enter your topic</label>
+        <input
+          type="text"
+          id="topicInput"
+          class="topic-input"
+          placeholder="e.g. Neural Networks, Photosynthesis, Derivatives, The French Revolution…"
+          autocomplete="off"
+          aria-describedby="topicValidation recentChips"
+        />
+      </div>
+      <div class="validation-msg" id="topicValidation" role="alert" aria-live="polite"></div>
+      <div class="recent-chips" id="recentChips" aria-label="Recent searches"></div>
+    </div>
+
+    <!-- Step 4: Depth Level -->
+    <div class="step" role="group" aria-labelledby="depthLabel">
+      <div class="step-label" id="depthLabel">
+        <span aria-hidden="true">4</span> Depth Level
+      </div>
+      <div class="pill-group" role="radiogroup" aria-label="Select depth level">
+        <button class="pill pill-depth" data-value="quick"    role="radio" aria-checked="false" tabindex="0">⚡ Quick Overview</button>
+        <button class="pill pill-depth" data-value="standard" role="radio" aria-checked="false" tabindex="0">📋 Standard</button>
+        <button class="pill pill-depth" data-value="deepdive" role="radio" aria-checked="false" tabindex="0">🔬 Deep Dive</button>
+      </div>
+      <div class="validation-msg" id="depthValidation" role="alert" aria-live="polite"></div>
+    </div>
+
+    <!-- Generate Button -->
+    <button class="btn-generate" id="generateBtn" type="button" aria-label="Generate notes">
+      <span class="spinner" aria-hidden="true"></span>
+      <span class="btn-label">✦ Generate Notes</span>
+      <span class="btn-loading-label">Generating…</span>
+    </button>
+  </section>
+
+  <!-- ── Skeleton Loader ── -->
+  <div class="skeleton-area" id="skeletonArea" aria-busy="true" aria-label="Loading notes…">
+    <div class="skeleton-line title"></div>
+    <div class="skeleton-line w-full"></div>
+    <div class="skeleton-line w-90"></div>
+    <div class="skeleton-line w-80"></div>
+    <div class="skeleton-line w-full"></div>
+    <div class="skeleton-line w-65"></div>
+    <div class="skeleton-line w-90"></div>
+    <div class="skeleton-line w-80"></div>
+    <div class="skeleton-line w-full"></div>
+  </div>
+
+  <!-- ── Output Area ── -->
+  <section class="output-area" id="outputArea" aria-label="Generated notes" aria-live="polite">
+
+    <!-- Output Header -->
+    <div class="output-header">
+      <div class="output-topic" id="outputTopic"></div>
+      <div class="output-meta">
+        <span class="badge badge-level" id="outputLevelBadge"></span>
+        <span class="badge badge-domain" id="outputDomainBadge"></span>
+        <span class="badge badge-time" id="outputTimeBadge">⏱</span>
+      </div>
+      <div class="output-actions">
+        <button class="btn-sm" id="copyAllBtn" title="Copy all notes" aria-label="Copy all notes">
+          📋 Copy All
+        </button>
+        <button class="btn-sm" id="pdfBtn" title="Export as PDF" aria-label="Export as PDF">
+          📄 PDF
+        </button>
+        <button class="btn-sm" id="printBtn" title="Print notes" aria-label="Print notes">
+          🖨️ Print
+        </button>
+      </div>
+    </div>
+
+    <!-- Output Body (TOC + Content) -->
+    <div class="output-body">
+
+      <!-- TOC Sidebar -->
+      <aside class="toc-sidebar" id="tocSidebar" aria-label="Table of contents">
+        <div class="toc-title">Contents</div>
+        <ul class="toc-list" id="tocList" role="list"></ul>
+      </aside>
+
+      <!-- Notes Content -->
+      <article class="notes-content" id="notesContent" tabindex="-1" aria-label="Notes content">
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── Follow-up Chat ── -->
+  <section class="followup-section" id="followupSection" aria-label="Ask a follow-up question">
+    <div class="followup-header">💬 Ask a Follow-Up Question</div>
+    <div class="chat-history" id="chatHistory" aria-live="polite" aria-label="Conversation history"></div>
+    <div class="followup-input-row">
+      <label for="followupInput" class="visually-hidden">Ask a follow-up question</label>
+      <input
+        type="text"
+        id="followupInput"
+        class="followup-input"
+        placeholder="Ask anything about this topic…"
+        autocomplete="off"
+        aria-label="Ask a follow-up question"
+      />
+      <button class="btn-send" id="sendBtn" aria-label="Send question" title="Send">➤</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Toast Container ── -->
+<div class="toast-container" id="toastContainer" role="status" aria-live="polite" aria-atomic="false"></div>
+
+<!-- ── Footer ── -->
+<footer class="footer" role="contentinfo">
+  <span>NoteVerse AI</span> — Powered by <span>Groq · LLaMA 3</span> &nbsp;|&nbsp; Built for curious learners everywhere
+</footer>
+
+<!-- External Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"
+        integrity="sha384-odPBjvtXVM/5hOYIr3A1dB+flh0c3wAT3bSesIOqEGmyUA4JoKf/YTWy0XKOYAY7"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous"></script>
+
+<!-- App JS -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>
